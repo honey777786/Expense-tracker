@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MySpend - Expense Tracker</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="top">
+        <div class="brand">
+          <h1>My<span>Spend</span></h1>
+          <p class="tagline">Smart • Colorful • Simple</p>
+        </div>
+
+        <div class="top-actions">
+          <button id="exportBtn" class="btn ghost">Export</button>
+          <button id="importBtn" class="btn ghost">Import</button>
+          <input type="file" id="importFile" accept=".json" hidden />
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-grid">
+        <!-- Left column -->
+        <section class="left-col">
+          <div class="cards">
+            <!-- Balance Card -->
+            <div class="card balance-card">
+              <div>
+                <small>Balance</small>
+                <h2 id="balance">₹0.00</h2>
+              </div>
+              <div class="mini">
+                <div>
+                  <small>Income</small>
+                  <p id="income">₹0.00</p>
+                </div>
+                <div>
+                  <small>Expense</small>
+                  <p id="expense">₹0.00</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add / Edit Transaction Form -->
+            <div class="card form-card">
+              <h3 id="formTitle">Add Transaction</h3>
+
+              <form id="transaction-form" autocomplete="off">
+                <div class="row">
+                  <input
+                    type="text"
+                    id="desc"
+                    placeholder="Description (e.g. Groceries)"
+                    required
+                  />
+                  <select id="type" aria-label="Transaction type">
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                  </select>
+                </div>
+
+                <div class="row small">
+                  <input
+                    type="number"
+                    id="amount"
+                    step="0.01"
+                    placeholder="Amount (e.g. 1500)"
+                    required
+                  />
+                  <select id="category">
+                    <option value="other">Other</option>
+                    <option value="food">Food</option>
+                    <option value="transport">Transport</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="bills">Bills</option>
+                    <option value="salary">Salary</option>
+                  </select>
+                </div>
+
+                <div class="row small">
+                  <input type="date" id="date" />
+                  <div class="form-actions">
+                    <button id="submitBtn" class="btn" type="submit">
+                      Add
+                    </button>
+                    <button
+                      id="cancelEdit"
+                      class="btn ghost"
+                      type="button"
+                      style="display: none"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Transactions List -->
+          <div class="card list-card">
+            <div class="list-top">
+              <h3>Transactions</h3>
+              <div class="filters">
+                <select id="filterType">
+                  <option value="all">All</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+
+                <select id="filterCategory">
+                  <option value="all">All Categories</option>
+                  <option value="salary">Salary</option>
+                  <option value="food">Food</option>
+                  <option value="transport">Transport</option>
+                  <option value="shopping">Shopping</option>
+                  <option value="bills">Bills</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <input
+                  type="text"
+                  id="searchText"
+                  placeholder="Search description"
+                />
+              </div>
+            </div>
+
+            <ul id="transactions" class="transactions"></ul>
+
+            <div class="list-actions">
+              <button id="clearBtn" class="btn ghost">Clear All</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right column -->
+        <aside class="right-col">
+          <div class="card chart-card">
+            <h3>Expenses by Category</h3>
+            <canvas id="pieChart" height="260"></canvas>
+          </div>
+
+          <div class="card chart-card">
+            <h3>Expenses Trend</h3>
+            <canvas id="barChart" height="260"></canvas>
+          </div>
+
+          <div class="card tips-card">
+            <h3>Quick Tips</h3>
+            <ul>
+              <li>Use categories to track your spending habits.</li>
+              <li>Export data regularly as a backup.</li>
+              <li>Click ✏️ to edit any transaction.</li>
+            </ul>
+          </div>
+        </aside>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>Made with ❤️ • Data saved locally in your browser</p>
+      </footer>
+    </div>
+
+    <!-- Script -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
